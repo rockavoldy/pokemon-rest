@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        DB_HOST: ${DB_HOST}
+    depends_on:
+      - "mariadb"
+    ports:
+    - "8080:8080"
+    networks:
+      - pokemon-rest
+
+  mariadb:
+    image: mariadb:10.5
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    ports:
+      - "3306:3306"
+    networks:
+      - pokemon-rest
+
+  pma:
+    image: phpmyadmin:5.1-apache
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+    - "8000:80"
+    environment:
+      - PMA_HOST=${DB_HOST}
+      - PMA_PORT=${DB_PORT}
+      - PMA_USER=${DB_USERNAME}
+      - PMA_PASSWORD=${DB_PASSWORD}
+    networks:
+      - pokemon-rest
+networks:
+  pokemon-rest:
+    driver: "bridge"

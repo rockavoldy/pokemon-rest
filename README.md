@@ -1,5 +1,7 @@
 # Pokemon RESTAPI
 
+This repository is for Pahamify recruitment for intern back-end position, but i don't get any reply from them, since it's been around 10 months ago, i make it public. This is my first time using Go too.
+
 ## Technology used
 - Language: Golang v1.15.7
 - Framework: gin-gonic/gin v1.16.3
